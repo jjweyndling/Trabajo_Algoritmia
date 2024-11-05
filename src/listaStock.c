@@ -8,30 +8,13 @@
 
 static void nuevoVecinosMasCercanos(vecino *, int);
 
-float calcularDistancia(Persona vecino, Persona per) {
+float calcularDistancia(t_stock vecino, t_stock per) {
     float diferencia, distancia;
-    // Valores ponderados por peso de relevancia en el diagnóstico del
-    // diabetes
-    diferencia = 0;
-    diferencia += pow(vecino.genero - per.genero, 2) * FACTOR_GENERO;
-    diferencia += pow(vecino.edad - per.edad, 2) * FACTOR_EDAD;
-    diferencia +=
-        pow(vecino.hipertension - per.hipertension, 2) * FACTOR_HIPERTENSION;
-    diferencia += pow(vecino.enfermedad_corazon - per.enfermedad_corazon, 2) *
-                  FACTOR_ENF_CORAZON;
-    diferencia +=
-        pow(vecino.historia_fumador - per.historia_fumador, 2) * FACTOR_FUMADOR;
-    diferencia += pow(vecino.bmi - per.bmi, 2) * FACTOR_BMI;
-    diferencia += pow(vecino.HbA1c - per.HbA1c, 2) * FACTOR_HBA1C;
-    diferencia +=
-        pow(vecino.nivel_glucosa_sangre - per.nivel_glucosa_sangre, 2) *
-        FACTOR_GLUCOSA_EN_SANGRE;
-    distancia = sqrt(diferencia);
 
     return distancia;
 }
 
-void nuevaLista(listaPersona *p, int k) {
+void nuevaLista(listaStock *p, int k) {
     p->ini = NULL;
     p->fin = NULL;
     if ((p->vecinosMasCercanos = (vecino *)malloc(sizeof(vecino))) == NULL) {
@@ -41,19 +24,19 @@ void nuevaLista(listaPersona *p, int k) {
     nuevoVecinosMasCercanos(p->vecinosMasCercanos, k);
 }
 
-void insertar(listaPersona *p, Persona nuevaPersona) {
-    celdaPersona *nueva;
+void insertar(listaStock *p, t_stock nuevaStock) {
+    celdaStock *nueva;
 
-    if ((nueva = (celdaPersona *)malloc(sizeof(celdaPersona))) == NULL) {
+    if ((nueva = (celdaStock *)malloc(sizeof(celdaStock))) == NULL) {
         printf("Error en insertar, no se puede asignar mas memoria nueva\n");
         return;
     }
 
-    if ((nueva->p = (Persona *)malloc(sizeof(Persona))) == NULL) {
+    if ((nueva->s = (t_stock *)malloc(sizeof(t_stock))) == NULL) {
         printf("Error en insertar, no se puede asignarm memoria a nueva->p\n");
     }
 
-    memcpy(nueva->p, &nuevaPersona, sizeof(Persona));
+    memcpy(nueva->s, &nuevaStock, sizeof(t_stock));
 
     if (esNulaLista(*p)) {
         nueva->sig = NULL;
@@ -67,10 +50,12 @@ void insertar(listaPersona *p, Persona nuevaPersona) {
     p->fin = nueva;
 }
 
-bool esNulaLista(listaPersona p) { return (p.ini == NULL); }
+bool esNulaLista(listaStock p) { 
+    return (p.ini == NULL); 
+}
 
-void mostrarLista(listaPersona p) {
-    celdaPersona *aux;
+void mostrarLista(listaStock p) {
+    celdaStock *aux;
     int i;
 
     if (esNulaLista(p)) {
@@ -80,40 +65,26 @@ void mostrarLista(listaPersona p) {
     i = 1;
     aux = p.ini;
     while (aux != NULL) {
-        printf("\n\nPersona: %d\n", i);
-        if (aux->p->genero == 0.0) {
+        printf("\n\nStock: %d\n", i);
+        if ( == 0.0) {
             printf("Genero: Masculino\n");
         } else {
             printf("Genero: Femenino\n");
         }
-        printf("Edad: %g\n", aux->p->edad);
-        printf("Hipertension: %f\n", aux->p->hipertension);
-        printf("Enfermedad corazon: %g\n", aux->p->enfermedad_corazon);
-        if (aux->p->historia_fumador == 0.0) {
-            printf("Historia fumador: nunca\n");
-        } else if (aux->p->historia_fumador == 1.0) {
-            printf("Historia fumador: antiguo\n");
-        } else if (aux->p->historia_fumador == 2.0) {
-            printf("Historia fumador: sin informacion\n");
-        } else if (aux->p->historia_fumador == 3.0) {
-            printf("Historia fumador: actualmente no\n");
-        } else if (aux->p->historia_fumador == 4.0) {
-            printf("Historia fumador: de vez en cuando\n");
-        } else if (aux->p->historia_fumador == 5.0) {
-            printf("Historia fumador: fumador\n");
-        }
-        printf("BMI: %f\n", aux->p->bmi);
-        printf("HbA1c: %f\n", aux->p->HbA1c);
-        printf("Nivel de glucosa en sangre: %f\n",
-               aux->p->nivel_glucosa_sangre);
-        printf("Diabetes: %g\n", aux->p->diabetes);
+        printf("Edad: %g\n", );
+        printf("Hipertension: %f\n", );
+        printf("Enfermedad corazon: %g\n", );
+        printf("BMI: %f\n", );
+        printf("HbA1c: %f\n", );
+        printf("Nivel de glucosa en sangre: %f\n", );
+        printf("Diabetes: %g\n", );
         aux = aux->sig;
         i++;
     }
 }
 
-void calcularVecinosMasCercanos(listaPersona p, Persona per, int k) {
-    celdaPersona *aux;
+void calcularVecinosMasCercanos(listaStock p, t_stock per, int k) {
+    celdaStock *aux;
     int i, maxIndex;
 
     if (esNulaLista(p)) {
@@ -152,8 +123,8 @@ void calcularVecinosMasCercanos(listaPersona p, Persona per, int k) {
     }
 }
 
-void vaciarLista(listaPersona *p) {
-    celdaPersona *aux, *aux2;
+void vaciarLista(listaStock *p) {
+    celdaStock *aux, *aux2;
 
     if (esNulaLista(*p)) {
         printf("La lista es nula\n");
@@ -164,7 +135,7 @@ void vaciarLista(listaPersona *p) {
     while (aux != NULL) {
         aux2 = aux;
         aux = aux->sig;
-        free(aux2->p);
+        free(aux2->s);
         free(aux2);
     }
 
@@ -173,7 +144,7 @@ void vaciarLista(listaPersona *p) {
 }
 
 static void nuevoVecinosMasCercanos(vecino *v, int k) {
-    if ((v->p = (Persona *)malloc(sizeof(vecino) * k)) == NULL) {
+    if ((v->s = (t_stock *)malloc(sizeof(vecino) * k)) == NULL) {
         printf("Error asignando memoria para p->vecinos->vecino en "
                "nuevoVecinosMasCercanos\n");
         return;
