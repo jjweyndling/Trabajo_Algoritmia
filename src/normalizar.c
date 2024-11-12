@@ -133,6 +133,3 @@ listaStock normalizar(listaStock lista, t_stock dato_max, t_stock dato_min){
     return lista;
 }
 
-
-}
-

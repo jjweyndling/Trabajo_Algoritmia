@@ -1,9 +1,9 @@
 #include "listaStock.h"
 #include"cargarDatos.h"
 
-void cargarStocks(char *file, listaStock *entradas) {
+void cargarStocks(char *file, listaStock *lista) {
     FILE *f;
-    char buffer[LECTURA_MAX];
+    char buffer[MAX_BUF_SIZE];
 
     if ((f = fopen(file, "r")) == NULL) {
         printf("No se ha podido abrir el archivo\n");
@@ -13,8 +13,7 @@ void cargarStocks(char *file, listaStock *entradas) {
     while (!feof(f)) {
         leePaciente(f, buffer);
         if (strlen(buffer) > 30) { // Para evitar lecturas erroneas (cada entrada de paciente tiene al menos 30 caracteres)
-        
-            guardaPaciente(buffer, pacientes);
+            guardaStock(buffer, lista);
         }
     }
     fclose(f);
@@ -25,7 +24,7 @@ static void leerPaciente(FILE *f, char *buf) {
     fgetc(f);
 }
 
-static void guardarStock(const char *atr, listaStock *lista_stocks) {
+static void guardarStock(const char *entrada, listaStock *lista_stocks) {
     t_stock s;
     char **atr;
     char *copia, *token;
@@ -61,10 +60,10 @@ static void guardarStock(const char *atr, listaStock *lista_stocks) {
         printf ("\n");
     */
 
-    s.apertura = atr[0];
+    s.apertura = strtof(atr[0], NULL);
     s.valor_max_dia = strtof(atr[1], NULL);
     s.valor_min_dia = strtof(atr[2], NULL);
-    s.cierre = strtol(atr[3], NULL);
+    s.cierre = strtol(atr[3], NULL, 0);
     s.volumen = strtof(atr[4], NULL);
     s.RSI_7 = strtof(atr[5], NULL);
     s.RSI_14 = strtof(atr[6], NULL);
@@ -94,8 +93,8 @@ static void guardarStock(const char *atr, listaStock *lista_stocks) {
 void insertar(listaStock *s, t_stock nuevoStock) {
     celdaStock *nueva;
 
-    nueva = (celdaStock *)malloc(sizeof(celdaStock))
-    nueva->s = (t_stock *)malloc(sizeof(t_stock))
+    nueva = (celdaStock *)malloc(sizeof(celdaStock));
+    nueva->s = (t_stock *)malloc(sizeof(t_stock));
     memcpy(nueva->s, &nuevoStock, sizeof(t_stock));
     if (esNulaLista(*s)) {
         nueva->sig = NULL;
@@ -108,7 +107,7 @@ void insertar(listaStock *s, t_stock nuevoStock) {
     s->fin = nueva;
 }
 
-void imprimirLista(listaStock lista){
+void imprimirLista(listaStock lista) {
     celdaStock *aux = lista.ini;
     while(aux != NULL){
         printf("Apertura: %f\n", aux->s->apertura);
@@ -132,3 +131,4 @@ void imprimirLista(listaStock lista){
         printf("Variacion: %f\n", aux->s->variacion);
         aux = aux->sig;
     }
+}

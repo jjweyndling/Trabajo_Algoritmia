@@ -22,9 +22,9 @@ typedef struct t_stock{
     float variacion;
 }t_stock;
 
-typedef struct celdaP {
+typedef struct celdaS {
     t_stock *s;         // Puntero a la Stock
-    struct celdaP *sig; // Stock siguiente en la lista
+    struct celdaS *sig; // Stock siguiente en la lista
 } celdaStock;
 
 // ESTRUCTURA: VECINO
@@ -34,7 +34,7 @@ typedef struct vecino {
 } vecino;
 
 // ESTRUCTURA: LISTA DE Stocks (es una lista de celdas Stock)
-typedef struct listaP {
+typedef struct listaS {
     celdaStock *ini;          // Primer Stock de la lista
     celdaStock *fin;          // Último Stock de la lista
     vecino *vecinosMasCercanos; // Array con los k vecinos más cercanos
