@@ -7,3 +7,4 @@
 void cargarStocks(char *file, listaStock *entradas);
 static void guardarStock(const char *atr, listaStock *lista_stocks);
 void insertar(listaPersona *p, Persona nuevaPersona);
+void imprimirLista(listaStock lista);

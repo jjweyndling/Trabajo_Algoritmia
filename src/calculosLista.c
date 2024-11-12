@@ -22,19 +22,15 @@ void calcularVecinosMasCercanos(listaStock p, t_stock per, int k) {
         printf("La lista es nula\n");
         return;
     }
-
     aux = p.ini;
     i = 0;
-
     for (int j = 0; j < k; j++) {
         p.vecinosMasCercanos[j].distancia = calcularDistancia(*aux->p, per);
         p.vecinosMasCercanos[j].p = aux->p;
         aux = aux->sig;
     }
-
     while (aux != NULL) {
         i++;
-
         maxIndex = 0;
         for (int j = 1; j < k; j++) {
             if (p.vecinosMasCercanos[j].distancia >
@@ -42,14 +38,12 @@ void calcularVecinosMasCercanos(listaStock p, t_stock per, int k) {
                 maxIndex = j;
             }
         }
-
         if (calcularDistancia(*aux->p, per) <
             p.vecinosMasCercanos[maxIndex].distancia) {
             p.vecinosMasCercanos[maxIndex].distancia =
                 calcularDistancia(*aux->p, per);
             p.vecinosMasCercanos[maxIndex].p = aux->p;
         }
-
         aux = aux->sig;
     }
 }

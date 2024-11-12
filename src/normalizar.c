@@ -133,29 +133,6 @@ listaStock normalizar(listaStock lista, t_stock dato_max, t_stock dato_min){
     return lista;
 }
 
-void imprimirLista(listaStock lista){
-    celdaStock *aux = lista.ini;
-    while(aux != NULL){
-        printf("Apertura: %f\n", aux->s->apertura);
-        printf("Valor maximo del dia: %f\n", aux->s->valor_max_dia);
-        printf("Valor minimo del dia: %f\n", aux->s->valor_min_dia);
-        printf("Cierre: %f\n", aux->s->cierre);
-        printf("Volumen: %ld\n", aux->s->volumen);
-        printf("RSI 7: %f\n", aux->s->RSI_7);
-        printf("RSI 14: %f\n", aux->s->RSI_14);
-        printf("CCI 7: %f\n", aux->s->CCI_7);
-        printf("CCI 14: %f\n", aux->s->CCI_14);
-        printf("SMA 50: %f\n", aux->s->SMA_50);
-        printf("EMA 50: %f\n", aux->s->EMA_50);
-        printf("SMA 100: %f\n", aux->s->SMA_100);
-        printf("EMA 100: %f\n", aux->s->EMA_100);
-        printf("MACD: %f\n", aux->s->MACD);
-        printf("Bollinger: %f\n", aux->s->bollinger);
-        printf("TR: %f\n", aux->s->TR);
-        printf("ATR 7: %f\n", aux->s->ATR_7);
-        printf("ATR 14: %f\n", aux->s->ATR_14);
-        printf("Variacion: %f\n", aux->s->variacion);
-        aux = aux->sig;
-    }
+
 }
 
