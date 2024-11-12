@@ -1,5 +1,4 @@
 #include "listaStock.h"
-
 #include"cargarDatos.h"
 
 void cargarStocks(char *file, listaStock *entradas) {
@@ -34,16 +33,13 @@ static void guardarStock(const char *atr, listaStock *lista_stocks) {
 
     copia = (char *)malloc((strlen(atr) + 1) * sizeof(char));
     strcpy(copia, atr);
-
     token = strtok(copia, ",");
     while (token != NULL) {
         if (strlen(token) > 0)
             i++;
         token = strtok(NULL, ",");
     }
-
     atr = (char **)malloc(i * sizeof(char *));
-
     token = strtok((char *)atr, ",");
     i = 0;
     while (token != NULL) {
@@ -98,24 +94,16 @@ static void guardarStock(const char *atr, listaStock *lista_stocks) {
 void insertar(listaStock *s, t_stock nuevoStock) {
     celdaStock *nueva;
 
-    if ((nueva = (celdaStock *)malloc(sizeof(celdaStock))) == NULL) {
-        printf("Error en insertar, no se puede asignar mas memoria nueva\n");
-        return;
-    }
-    if ((nueva->s = (t_stock *)malloc(sizeof(t_stock))) == NULL) {
-        printf("Error en insertar, no se puede asignarm memoria a nueva->p\n");
-    }
-
-    memcpy(nueva->s, &nuevaPersona, sizeof(t_stock));
-
-    if (esNulaLista(*p)) {
+    nueva = (celdaStock *)malloc(sizeof(celdaStock))
+    nueva->s = (t_stock *)malloc(sizeof(t_stock))
+    memcpy(nueva->s, &nuevoStock, sizeof(t_stock));
+    if (esNulaLista(*s)) {
         nueva->sig = NULL;
-        p->ini = nueva;
-        p->fin = nueva;
+        s->ini = nueva;
+        s->fin = nueva;
         return;
     }
-
-    p->fin->sig = nueva;
+    s->fin->sig = nueva;
     nueva->sig = NULL;
-    p->fin = nueva;
+    s->fin = nueva;
 }
