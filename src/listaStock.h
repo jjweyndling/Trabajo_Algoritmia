@@ -19,6 +19,7 @@ typedef struct t_stock{
     float TR;
     float ATR_7;
     float ATR_14;
+    float variacion;
 }t_stock;
 
 typedef struct celdaP {
