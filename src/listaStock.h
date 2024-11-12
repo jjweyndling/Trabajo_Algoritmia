@@ -1,7 +1,24 @@
 #include <stdbool.h>
 
 typedef struct t_stock{
-
+    float apertura;
+    float valor_max_dia;
+    float valor_min_dia;
+    float cierre;
+    long int volumen;
+    float RSI_7;
+    float RSI_14;
+    float CCI_7;
+    float CCI_14;
+    float SMA_50;
+    float EMA_50;
+    float SMA_100;
+    float EMA_100;
+    float MACD;
+    float bollinger;
+    float TR;
+    float ATR_7;
+    float ATR_14;
 }t_stock;
 
 typedef struct celdaP {

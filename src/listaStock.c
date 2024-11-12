@@ -10,7 +10,7 @@ static void nuevoVecinosMasCercanos(vecino *, int);
 
 float calcularDistancia(t_stock vecino, t_stock per) {
     float diferencia, distancia;
-
+    
     return distancia;
 }
 
