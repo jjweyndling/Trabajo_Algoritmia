@@ -1,5 +1,6 @@
 #include "listaStock.h"
-#include"cargarDatos.h"
+#include "normalizar.h"
+#include "cargarDatos.h"
 
 void cargarStocks(char *file, listaStock *lista) {
     FILE *f;
@@ -60,6 +61,7 @@ static void guardarStock(const char *entrada, listaStock *lista_stocks) {
         printf ("\n");
     */
 
+    iniciar(&s);
     s.apertura = strtof(atr[0], NULL);
     s.valor_max_dia = strtof(atr[1], NULL);
     s.valor_min_dia = strtof(atr[2], NULL);
@@ -78,15 +80,13 @@ static void guardarStock(const char *entrada, listaStock *lista_stocks) {
     s.TR = strtof(atr[15], NULL);
     s.ATR_7 = strtof(atr[16], NULL);
     s.ATR_14 = strtof(atr[17], NULL);
-    if(!strcmp(atr[18], "bullish")) {
+    if(!strcmp(atr[18], "bullish"))
         s.variacion = 1;
-    } 
-    if(!strcmp(atr[18], "bearish")) {
+    if(!strcmp(atr[18], "bearish"))
         s.variacion = -1;
-    }
-    if(!strcmp(atr[18], "neutral")) {
+    if(!strcmp(atr[18], "neutral"))
         s.variacion = 0;
-    }
+    
     insertar(lista_stocks, s);
 }
 
