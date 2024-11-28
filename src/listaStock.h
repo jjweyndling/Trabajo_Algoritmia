@@ -1,5 +1,6 @@
 #include <stdbool.h>
 
+// TIPO DE DATO: STOCK
 typedef struct t_stock{
     float apertura;
     float valor_max_dia;
@@ -23,20 +24,20 @@ typedef struct t_stock{
 }t_stock;
 
 typedef struct celdaS {
-    t_stock *s;         // Puntero a la Stock
-    struct celdaS *sig; // Stock siguiente en la lista
+    t_stock *s;               // Puntero al stock
+    struct celdaS *sig;       // Stock siguiente en la lista
 } celdaStock;
 
 // ESTRUCTURA: VECINO
 typedef struct vecino {
-    t_stock *s;      // Puntero al Stock seleccionado
-    float distancia; // Distancia a este Stock
+    t_stock *s;               // Puntero al stock seleccionado
+    float distancia;          // Distancia a este stock
 } vecino;
 
-// ESTRUCTURA: LISTA DE Stocks (es una lista de celdas Stock)
+// ESTRUCTURA: LISTA DE STOCKS (es una lista de celdaStock)
 typedef struct listaS {
-    celdaStock *ini;          // Primer Stock de la lista
-    celdaStock *fin;          // Último Stock de la lista
+    celdaStock *ini;          // Primer stock de la lista
+    celdaStock *fin;          // Último stock de la lista
 } listaStock;
 
 void nuevaLista(listaStock *, int);

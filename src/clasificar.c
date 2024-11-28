@@ -24,7 +24,7 @@ float calcularDistancia(t_stock stock, t_stock modelo){
 }
 
 void seleccionarKNN(listaStock lista, tipoMaxMonticulo * knn, int k, t_stock stock) {
-    if( esNulaLista(lista)) {
+    if(esNulaLista(lista)) {
         printf("La lista es nula\n");
         exit(1);
     }
@@ -36,8 +36,8 @@ void seleccionarKNN(listaStock lista, tipoMaxMonticulo * knn, int k, t_stock sto
         nuevo_vecino.distancia = calcularDistancia(stock, *aux->s);
         if(vecino_mas_distante.distancia > nuevo_vecino.distancia) {
             nuevo_vecino.s = aux->s;
-            eliminarMaxMonticulo(&m, vecino_mas_distante);
-            insertarMaxMonticulo(&m, nuevo_vecino);
+            eliminarMaxMonticulo(&knn, vecino_mas_distante);
+            insertarMaxMonticulo(&knn, nuevo_vecino);
         }
         aux = aux->sig;
     }

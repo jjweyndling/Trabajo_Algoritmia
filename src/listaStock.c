@@ -39,7 +39,7 @@ void mostrarLista(listaStock lista) {
     celdaStock *aux = lista.ini;
     while (aux != NULL) {
         printf("\n\n--------------------------------------------------\n");
-        printf("Stock: %d\n", i);
+        printf("Stock: %d\n", i++);
         printf("\tValor en apertura: %f\n", aux->s->apertura);
         printf("\tValor maximo: %f\n", aux->s->valor_max_dia);
         printf("\tValor minimo: %f\n", aux->s->valor_min_dia);
@@ -58,14 +58,13 @@ void mostrarLista(listaStock lista) {
         printf("\tRango efectivo(TR): %f\n", aux->s->TR);
         printf("\tRango efectivo medio(ATR(7)): %f\n", aux->s->ATR_7);
         printf("\tRango efectivo medio(ATR(14)) %f\n", aux->s->ATR_14);
-        printf("\n\n--------------------------------------------------\n");
+        printf("--------------------------------------------------\n");
         aux = aux->sig;
-        i++;
     }
 }
 
 void vaciarLista(listaStock *lista) {
-    if ( esNulaLista(*lista) ) 
+    if (esNulaLista(*lista)) 
         errorListaStock("vaciarLista", "La lista es nula");
     celdaStock *aux = lista->ini, *aux2;
     while (aux != NULL) {

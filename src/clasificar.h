@@ -1,11 +1,11 @@
 #ifndef CLASIFICAR_H
 #define CLASIFICAR_H
 
-#include "listaStock.h"
 #include <stdlib.h>
-#include <math.h>
+#include "listaStock.h"
+#include "maxMonticulo.h"
 
-void calcularDistancia(listaStock lista, t_stock per);
-void seleccionarKNN(listaStock, tipoMaxMonticulo *, int k);
+void seleccionarKNN(listaStock, tipoMaxMonticulo *, int, t_stock);
+void predecirClase(tipoMaxMonticulo);
 
 #endif

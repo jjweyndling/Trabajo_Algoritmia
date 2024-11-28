@@ -1,6 +1,5 @@
 #include "normalizar.h"
 #include <stdio.h>
-#include <string.h>
 #include <math.h>
 
 void iniciar(t_stock * dato){
