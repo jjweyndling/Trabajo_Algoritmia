@@ -1,4 +1,7 @@
+#include <math.h>
 #include "clasificar.h"
+
+#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
 float calcularDistancia(t_stock stock, t_stock modelo){
     return sqrt(
@@ -23,27 +26,39 @@ float calcularDistancia(t_stock stock, t_stock modelo){
     );
 }
 
-void seleccionarKNN(listaStock lista, tipoMaxMonticulo * knn, int k, t_stock stock) {
+void seleccionarKNN(listaStock lista, tipoMaxMonticulo * knn, t_stock stock) {
     if(esNulaLista(lista)) {
         printf("La lista es nula\n");
         exit(1);
     }
-    nuevoMaxMonticulo(&knn, k);
     celdaStock *aux = lista.ini;
     vecino vecino_mas_distante, nuevo_vecino;
+    vecino_mas_distante.distancia = 1; // Incializado en la distancia máxima
     while(aux != NULL) {
-        vecino_mas_distante = mostrarMaximo(*knn);
         nuevo_vecino.distancia = calcularDistancia(stock, *aux->s);
         if(vecino_mas_distante.distancia > nuevo_vecino.distancia) {
             nuevo_vecino.s = aux->s;
             eliminarMaxMonticulo(&knn, vecino_mas_distante);
             insertarMaxMonticulo(&knn, nuevo_vecino);
         }
+        vecino_mas_distante = devolverRaiz(*knn);
         aux = aux->sig;
     }
 }
 
-void predecirClase(tipoMaxMonticulo knn) {
-    // Recorrer monticulo y contar nº de apariciones de cada clase
-    // Predecir la clase mas repetida
+int predecirClase(tipoMaxMonticulo knn) {
+    vecino vecino = devolverRaiz(knn);
+    int claseCrece, claseDecrece, claseNeutro;
+    for(int i=0; i <= knn.pos; i++) {
+        switch(vecino.s->variacion) {
+            case -1:
+                claseDecrece++;
+            case 0:
+                claseNeutro++;
+            case 1:
+                claseCrece++;
+        }
+        vecino = knn.array[i];
+    }
+    // Devolver el nº correspondiente a la clase más repetida
 }

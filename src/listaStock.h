@@ -20,7 +20,7 @@ typedef struct t_stock{
     float TR;
     float ATR_7;
     float ATR_14;
-    float variacion;
+    int variacion; // -1: Decreciente, 0: Neutral, 1: Creciente
 }t_stock;
 
 typedef struct celdaS {
@@ -28,19 +28,13 @@ typedef struct celdaS {
     struct celdaS *sig;       // Stock siguiente en la lista
 } celdaStock;
 
-// ESTRUCTURA: VECINO
-typedef struct vecino {
-    t_stock *s;               // Puntero al stock seleccionado
-    float distancia;          // Distancia a este stock
-} vecino;
-
 // ESTRUCTURA: LISTA DE STOCKS (es una lista de celdaStock)
 typedef struct listaS {
     celdaStock *ini;          // Primer stock de la lista
     celdaStock *fin;          // Último stock de la lista
 } listaStock;
 
-void nuevaLista(listaStock *, int);
+void nuevaLista(listaStock *);
 void insertar(listaStock *, t_stock);
 bool esNulaLista(listaStock);
 void mostrarLista(listaStock);

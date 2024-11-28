@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "listaStock.h"
 #include "normalizar.h"
 #include "cargarDatos.h"
@@ -45,8 +48,8 @@ static void guardarStock(const char *entrada, listaStock *lista_stocks) {
     s.apertura = strtof(atr[0], NULL);
     s.valor_max_dia = strtof(atr[1], NULL);
     s.valor_min_dia = strtof(atr[2], NULL);
-    s.cierre = strtol(atr[3], NULL, 0);
-    s.volumen = strtof(atr[4], NULL);
+    s.cierre = strtof(atr[3], NULL);
+    s.volumen = strtol(atr[4], NULL, 0);
     s.RSI_7 = strtof(atr[5], NULL);
     s.RSI_14 = strtof(atr[6], NULL);
     s.CCI_7 = strtof(atr[7], NULL);
@@ -60,6 +63,7 @@ static void guardarStock(const char *entrada, listaStock *lista_stocks) {
     s.TR = strtof(atr[15], NULL);
     s.ATR_7 = strtof(atr[16], NULL);
     s.ATR_14 = strtof(atr[17], NULL);
+    s.variacion = atoi(atr[18]);
     if(!strcmp(atr[18], "bullish"))
         s.variacion = 1;
     if(!strcmp(atr[18], "bearish"))
@@ -80,9 +84,10 @@ void cargarEntradas(char *file, listaStock *lista) {
     while (!feof(f)) {
         leerEntrada(f, buffer);
         if (strlen(buffer) > 30) // Para evitar lecturas erroneas (cada entrada stock tiene al menos 30 caracteres) <-- ESTO HAY QUE REVISAR 
-            guardaStock(buffer, lista);
+            guardarStock(buffer, lista);
     }
     fclose(f);
+    normalizar(lista);
 }
 
 void imprimirLista(listaStock lista) {

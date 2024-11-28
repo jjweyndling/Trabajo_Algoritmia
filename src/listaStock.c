@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include "listaStock.h"
 
 void errorListaStock(char * func, char * msg) {
@@ -8,7 +7,7 @@ void errorListaStock(char * func, char * msg) {
     exit(-1);
 }
 
-void nuevaLista(listaStock *lista, int k) {
+void nuevaLista(listaStock *lista) {
     lista->ini = NULL;
     lista->fin = NULL;
 }
@@ -58,6 +57,7 @@ void mostrarLista(listaStock lista) {
         printf("\tRango efectivo(TR): %f\n", aux->s->TR);
         printf("\tRango efectivo medio(ATR(7)): %f\n", aux->s->ATR_7);
         printf("\tRango efectivo medio(ATR(14)) %f\n", aux->s->ATR_14);
+        printf("\tVariacion: %d\n", aux->s->variacion);
         printf("--------------------------------------------------\n");
         aux = aux->sig;
     }
