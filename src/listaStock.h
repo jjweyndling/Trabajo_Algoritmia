@@ -37,14 +37,13 @@ typedef struct vecino {
 typedef struct listaS {
     celdaStock *ini;          // Primer Stock de la lista
     celdaStock *fin;          // Último Stock de la lista
-    vecino *vecinosMasCercanos; // Array con los k vecinos más cercanos
 } listaStock;
 
 void nuevaLista(listaStock *, int);
 void insertar(listaStock *, t_stock);
 bool esNulaLista(listaStock);
 void mostrarLista(listaStock);
-void calcularVecinosMasCercanos(listaStock, t_stock, int);
 void vaciarLista(listaStock *);
+void calcularVecinosMasCercanos(listaStock, t_stock, int);
 float calcularDistancia(t_stock, t_stock);
 float calcularDistancia(t_stock, t_stock);

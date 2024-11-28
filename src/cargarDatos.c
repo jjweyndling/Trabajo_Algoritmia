@@ -2,25 +2,7 @@
 #include "normalizar.h"
 #include "cargarDatos.h"
 
-void cargarStocks(char *file, listaStock *lista) {
-    FILE *f;
-    char buffer[MAX_BUF_SIZE];
-
-    if ((f = fopen(file, "r")) == NULL) {
-        printf("No se ha podido abrir el archivo\n");
-        exit(1);
-    }
-    leePaciente(f, buffer); // Tratamiento inicial: saltar la cabecera con la lista de atributos
-    while (!feof(f)) {
-        leePaciente(f, buffer);
-        if (strlen(buffer) > 30) { // Para evitar lecturas erroneas (cada entrada de paciente tiene al menos 30 caracteres)
-            guardaStock(buffer, lista);
-        }
-    }
-    fclose(f);
-}
-
-static void leerPaciente(FILE *f, char *buf) {
+static void leerEntrada(FILE *f, char *buf) {
     fscanf(f, "%[^\n]", buf);
     fgetc(f);
 }
@@ -29,11 +11,10 @@ static void guardarStock(const char *entrada, listaStock *lista_stocks) {
     t_stock s;
     char **atr;
     char *copia, *token;
-    int i = 1;
-
     copia = (char *)malloc((strlen(atr) + 1) * sizeof(char));
     strcpy(copia, atr);
     token = strtok(copia, ",");
+    int i = 1;
     while (token != NULL) {
         if (strlen(token) > 0)
             i++;
@@ -61,7 +42,6 @@ static void guardarStock(const char *entrada, listaStock *lista_stocks) {
         printf ("\n");
     */
 
-    iniciar(&s);
     s.apertura = strtof(atr[0], NULL);
     s.valor_max_dia = strtof(atr[1], NULL);
     s.valor_min_dia = strtof(atr[2], NULL);
@@ -86,25 +66,23 @@ static void guardarStock(const char *entrada, listaStock *lista_stocks) {
         s.variacion = -1;
     if(!strcmp(atr[18], "neutral"))
         s.variacion = 0;
-    
     insertar(lista_stocks, s);
 }
 
-void insertar(listaStock *s, t_stock nuevoStock) {
-    celdaStock *nueva;
-
-    nueva = (celdaStock *)malloc(sizeof(celdaStock));
-    nueva->s = (t_stock *)malloc(sizeof(t_stock));
-    memcpy(nueva->s, &nuevoStock, sizeof(t_stock));
-    if (esNulaLista(*s)) {
-        nueva->sig = NULL;
-        s->ini = nueva;
-        s->fin = nueva;
-        return;
+void cargarEntradas(char *file, listaStock *lista) {
+    FILE *f;
+    char buffer[MAX_BUF_SIZE];
+    if ((f = fopen(file, "r")) == NULL) {
+        printf("No se ha podido abrir el archivo\n");
+        exit(1);
     }
-    s->fin->sig = nueva;
-    nueva->sig = NULL;
-    s->fin = nueva;
+    leerEntrada(f, buffer); // Tratamiento inicial: saltar la cabecera con la lista de atributos
+    while (!feof(f)) {
+        leerEntrada(f, buffer);
+        if (strlen(buffer) > 30) // Para evitar lecturas erroneas (cada entrada stock tiene al menos 30 caracteres) <-- ESTO HAY QUE REVISAR 
+            guardaStock(buffer, lista);
+    }
+    fclose(f);
 }
 
 void imprimirLista(listaStock lista) {

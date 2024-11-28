@@ -110,7 +110,7 @@ void normalizar(listaStock * lista){
     iniciar(&dato_min);
     iniciar(&dato_max);
     while(aux != NULL) {
-        calcular_min(aux->s, &dato_min);
+        calcular_min(*aux->s, &dato_min);
         calcuar_max(aux->s, &dato_max);
         aux = aux->sig;
     }
