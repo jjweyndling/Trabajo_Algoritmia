@@ -1,7 +1,6 @@
 #include <math.h>
+#include <stdlib.h>
 #include "clasificar.h"
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
 float calcularDistancia(t_stock stock, t_stock modelo){
     return sqrt(
@@ -38,8 +37,8 @@ void seleccionarKNN(listaStock lista, tipoMaxMonticulo * knn, t_stock stock) {
         nuevo_vecino.distancia = calcularDistancia(stock, *aux->s);
         if(vecino_mas_distante.distancia > nuevo_vecino.distancia) {
             nuevo_vecino.s = aux->s;
-            eliminarMaxMonticulo(&knn, vecino_mas_distante);
-            insertarMaxMonticulo(&knn, nuevo_vecino);
+            eliminarMaxMonticulo(knn, vecino_mas_distante);
+            insertarMaxMonticulo(knn, nuevo_vecino);
         }
         vecino_mas_distante = devolverRaiz(*knn);
         aux = aux->sig;
@@ -48,17 +47,36 @@ void seleccionarKNN(listaStock lista, tipoMaxMonticulo * knn, t_stock stock) {
 
 int predecirClase(tipoMaxMonticulo knn) {
     vecino vecino = devolverRaiz(knn);
-    int claseCrece, claseDecrece, claseNeutro;
+    int claseCrece=0, claseDecrece=0, claseNeutro=0;
+    float distanciaCrece=0, distanciaDecrece=0, distanciaNeutro=0;
     for(int i=0; i <= knn.pos; i++) {
         switch(vecino.s->variacion) {
-            case -1:
+            case DECRECE:
                 claseDecrece++;
-            case 0:
+                distanciaDecrece += vecino.distancia;
+                break;
+            case NEUTRO:
                 claseNeutro++;
-            case 1:
+                distanciaNeutro += vecino.distancia;
+                break;
+            default:
                 claseCrece++;
+                distanciaCrece += vecino.distancia;
+                break;
         }
         vecino = knn.array[i];
     }
-    // Devolver el nº correspondiente a la clase más repetida
+    if(claseDecrece > claseNeutro) {
+        return (claseDecrece > claseCrece) ? DECRECE : CRECE;
+    } else if(claseDecrece < claseNeutro) {
+        return (claseNeutro > claseCrece) ? NEUTRO : CRECE;
+    } else if(claseDecrece == claseNeutro && claseDecrece < claseCrece) {
+        return (distanciaDecrece < distanciaNeutro) ? DECRECE : NEUTRO;
+    } else if(claseDecrece == claseNeutro && claseDecrece > claseCrece) {
+        return CRECE;
+    } else if(claseNeutro == claseCrece && claseNeutro < claseDecrece) {
+        return (distanciaNeutro < distanciaCrece) ? NEUTRO : CRECE;
+    } else {
+        return DECRECE;
+    }
 }

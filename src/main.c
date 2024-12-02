@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include "listaStock.h"
-#include "maxMonticulo.h"
 #include "cargarDatos.h"
+#include "clasificar.h"
+
+#define PATHNAME "Trabajo_Algoritmia/data/aapl_2014_2023.csv"
 
 int main(){
     listaStock l;
@@ -11,14 +12,14 @@ int main(){
     printf("K: ");
     scanf("%d", &k);
     nuevoMaxMonticulo(&knn, k);
-    // cargarDatos(&fichero, &l);
+    cargarEntradas(PATHNAME, &l);
     // Entrada del usuario: stockSujeto
     // seleccionarKNN(l, &knn, stockSujeto);
     switch(predecirClase(knn)) {
-        case(-1):
+        case(DECRECE):
             printf("La tendencia del stock es DECRECIENTE\n");
             break;
-        case(0):
+        case(NEUTRO):
             printf("La tendencia del stock es NEUTRAL\n");
             break;
         default:

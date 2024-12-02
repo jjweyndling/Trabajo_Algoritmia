@@ -1,6 +1,6 @@
-#include "normalizar.h"
 #include <stdio.h>
 #include <math.h>
+#include "normalizar.h"
 
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
@@ -71,13 +71,12 @@ void calcular_min(t_stock dato, t_stock * dato_min){
 
 void normalizar(listaStock * lista){
     celdaStock *aux = lista->ini;
-    listaStock nueva;
     t_stock dato_min, dato_max;
     iniciar(&dato_min);
     iniciar(&dato_max);
     while(aux != NULL) {
         calcular_min(*aux->s, &dato_min);
-        calcuar_max(aux->s, &dato_max);
+        calcular_max(*aux->s, &dato_max);
         aux = aux->sig;
     }
     aux = lista->ini; 

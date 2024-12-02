@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "listaStock.h"
 #include "normalizar.h"
 #include "cargarDatos.h"
 
@@ -111,7 +110,7 @@ void imprimirLista(listaStock lista) {
         printf("TR: %f\n", aux->s->TR);
         printf("ATR 7: %f\n", aux->s->ATR_7);
         printf("ATR 14: %f\n", aux->s->ATR_14);
-        printf("Variacion: %f\n", aux->s->variacion);
+        printf("Variacion: %d\n", aux->s->variacion);
         aux = aux->sig;
     }
 }

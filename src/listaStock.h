@@ -1,5 +1,8 @@
 #include <stdbool.h>
 
+#define DECRECE -1
+#define NEUTRO 0
+#define CRECE 1
 // TIPO DE DATO: STOCK
 typedef struct t_stock{
     float apertura;

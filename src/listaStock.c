@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "listaStock.h"
 
 void errorListaStock(char * func, char * msg) {
@@ -43,7 +44,7 @@ void mostrarLista(listaStock lista) {
         printf("\tValor maximo: %f\n", aux->s->valor_max_dia);
         printf("\tValor minimo: %f\n", aux->s->valor_min_dia);
         printf("\tValor en cierre: %f\n", aux->s->cierre);
-        printf("\tVolumen total: %f\n", aux->s->volumen);
+        printf("\tVolumen total: %ld\n", aux->s->volumen);
         printf("\tRSI(7): %f\n", aux->s->RSI_7);
         printf("\tRSI(14): %f\n", aux->s->RSI_14);
         printf("\tCCI(7): %f\n", aux->s->CCI_7);

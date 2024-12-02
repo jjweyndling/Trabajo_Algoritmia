@@ -1,19 +1,22 @@
-all: main cargarDatos
+all: main
 
 main: main.c cargarDatos clasificar 
-	gcc main.c -o main *.o -Wall
-
-clasificar: clasificar.c maxMonticulo
-	gcc -c clasificar.c listaStock.o maxMonticulo.o -Wall
+	gcc main.c -o main *.o -lm -Wall
 
 cargarDatos: cargarDatos.c normalizar
-	gcc -c cargarDatos.c normalizar.o -Wall
+	gcc -c cargarDatos.c -Wall
 
 normalizar: normalizar.c listaStock
-	gcc -c normalizar.c listaStock.o -Wall
+	gcc -c normalizar.c -Wall
 
 listaStock: listaStock.c
 	gcc -c listaStock.c -Wall
 
+clasificar: clasificar.c maxMonticulo
+	gcc -c clasificar.c -Wall
+
 maxMonticulo: maxMonticulo.c
 	gcc -c maxMonticulo.c -Wall
+
+clean:
+	rm *.o main
