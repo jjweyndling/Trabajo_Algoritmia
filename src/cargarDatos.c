@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "normalizar.h"
 #include "cargarDatos.h"
 
 static void leerEntrada(FILE *f, char *buf) {
@@ -9,41 +8,23 @@ static void leerEntrada(FILE *f, char *buf) {
     fgetc(f);
 }
 
-static void guardarStock(const char *entrada, listaStock *lista_stocks) {
+static void guardarStock(char *entrada, listaStock *lista_stocks) {
     t_stock s;
+    char *token;
     char **atr;
-    char *copia, *token;
-    copia = (char *)malloc((strlen(atr) + 1) * sizeof(char));
-    strcpy(copia, atr);
-    token = strtok(copia, ",");
-    int i = 1;
-    while (token != NULL) {
-        if (strlen(token) > 0)
-            i++;
-        token = strtok(NULL, ",");
-    }
-    atr = (char **)malloc(i * sizeof(char *));
-    token = strtok((char *)atr, ",");
-    i = 0;
+    atr = (char **)malloc(MAX_BUF_SIZE * sizeof(char *));
+    token = strtok(entrada, ",");
+    int i = 0;
+    token = strtok(NULL, ","); // El primer atributo (fecha) no nos interesa
     while (token != NULL) {
         if (strlen(token) > 0) {
-            atr[i] = (char *)malloc((strlen(token) + 1) * sizeof(char));
+            atr[i] = (char *)malloc((strlen(token) + 1) * sizeof(char)); // Espacio suficiente para el tamaño del token+1 
             strcpy(atr[i], token);
             i++;
         }
         token = strtok(NULL, ",");
     }
-
-    /*
-        //Imprime los datos recogidos, para asegurarse de que son correctos
-        for (int i = 0; i < 9; i ++)
-        {
-            printf ("%s\n", atr[i]);
-        }
-
-        printf ("\n");
-    */
-
+    
     s.apertura = strtof(atr[0], NULL);
     s.valor_max_dia = strtof(atr[1], NULL);
     s.valor_min_dia = strtof(atr[2], NULL);
@@ -87,30 +68,4 @@ void cargarEntradas(char *file, listaStock *lista) {
     }
     fclose(f);
     normalizar(lista);
-}
-
-void imprimirLista(listaStock lista) {
-    celdaStock *aux = lista.ini;
-    while(aux != NULL){
-        printf("Apertura: %f\n", aux->s->apertura);
-        printf("Valor maximo del dia: %f\n", aux->s->valor_max_dia);
-        printf("Valor minimo del dia: %f\n", aux->s->valor_min_dia);
-        printf("Cierre: %f\n", aux->s->cierre);
-        printf("Volumen: %ld\n", aux->s->volumen);
-        printf("RSI 7: %f\n", aux->s->RSI_7);
-        printf("RSI 14: %f\n", aux->s->RSI_14);
-        printf("CCI 7: %f\n", aux->s->CCI_7);
-        printf("CCI 14: %f\n", aux->s->CCI_14);
-        printf("SMA 50: %f\n", aux->s->SMA_50);
-        printf("EMA 50: %f\n", aux->s->EMA_50);
-        printf("SMA 100: %f\n", aux->s->SMA_100);
-        printf("EMA 100: %f\n", aux->s->EMA_100);
-        printf("MACD: %f\n", aux->s->MACD);
-        printf("Bollinger: %f\n", aux->s->bollinger);
-        printf("TR: %f\n", aux->s->TR);
-        printf("ATR 7: %f\n", aux->s->ATR_7);
-        printf("ATR 14: %f\n", aux->s->ATR_14);
-        printf("Variacion: %d\n", aux->s->variacion);
-        aux = aux->sig;
-    }
 }

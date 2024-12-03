@@ -32,13 +32,17 @@ void seleccionarKNN(listaStock lista, tipoMaxMonticulo * knn, t_stock stock) {
     }
     celdaStock *aux = lista.ini;
     vecino vecino_mas_distante, nuevo_vecino;
-    vecino_mas_distante.distancia = 1; // Incializado en la distancia máxima
+    vecino_mas_distante.distancia = 10000000.0; // Incializado en la distancia máxima
     while(aux != NULL) {
+        nuevo_vecino.s = aux->s;
         nuevo_vecino.distancia = calcularDistancia(stock, *aux->s);
-        if(vecino_mas_distante.distancia > nuevo_vecino.distancia) {
-            nuevo_vecino.s = aux->s;
-            eliminarMaxMonticulo(knn, vecino_mas_distante);
+        if(!estaLleno(*knn)) {
             insertarMaxMonticulo(knn, nuevo_vecino);
+        } else {
+            if(vecino_mas_distante.distancia > nuevo_vecino.distancia) {
+                eliminarMaxMonticulo(knn, vecino_mas_distante);
+                insertarMaxMonticulo(knn, nuevo_vecino);
+            }
         }
         vecino_mas_distante = devolverRaiz(*knn);
         aux = aux->sig;

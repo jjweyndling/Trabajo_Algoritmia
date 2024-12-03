@@ -1,3 +1,6 @@
+#ifndef MAX_MOPNTICULO_H
+#define MAX_MOPNTICULO_H
+
 #include <stdbool.h>
 #include <stdio.h>
 #include "listaStock.h"
@@ -25,3 +28,5 @@ void mostrarAnchura(tipoMaxMonticulo);
 bool esVacio(tipoMaxMonticulo);
 bool estaLleno(tipoMaxMonticulo);
 void intercambio(tipoElementoMaxMonticulo *a, tipoElementoMaxMonticulo *b);
+
+#endif

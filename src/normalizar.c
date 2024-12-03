@@ -5,7 +5,7 @@
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
-void iniciar(t_stock * dato){
+void iniciarMax(t_stock * dato){
     dato->apertura = 0;
     dato->valor_max_dia = 0;
     dato->valor_min_dia = 0;
@@ -25,6 +25,28 @@ void iniciar(t_stock * dato){
     dato->ATR_7 = 0;
     dato->ATR_14 = 0;
     dato->variacion = 0;
+}
+
+void iniciarMin(t_stock * dato){
+    dato->apertura = 100000000.0;
+    dato->valor_max_dia = 100000000.0;
+    dato->valor_min_dia = 100000000.0;
+    dato->cierre = 100000000.0;
+    dato->volumen = 100000000;
+    dato->RSI_7 = 100000000.0;
+    dato->RSI_14 = 100000000.0;
+    dato->CCI_7 = 100000000.0;
+    dato->CCI_14 = 100000000.0;
+    dato->SMA_50 = 100000000.0;
+    dato->EMA_50 = 100000000.0;
+    dato->SMA_100 = 100000000.0;
+    dato->EMA_100 = 100000000.0;
+    dato->MACD = 100000000.0;
+    dato->bollinger = 100000000.0;
+    dato->TR = 100000000.0;
+    dato->ATR_7 = 100000000.0;
+    dato->ATR_14 = 100000000.0;
+    dato->variacion = 100000000.0;
 }
 
 void calcular_max(t_stock dato, t_stock * dato_max){
@@ -72,8 +94,8 @@ void calcular_min(t_stock dato, t_stock * dato_min){
 void normalizar(listaStock * lista){
     celdaStock *aux = lista->ini;
     t_stock dato_min, dato_max;
-    iniciar(&dato_min);
-    iniciar(&dato_max);
+    iniciarMin(&dato_min);
+    iniciarMax(&dato_max);
     while(aux != NULL) {
         calcular_min(*aux->s, &dato_min);
         calcular_max(*aux->s, &dato_max);

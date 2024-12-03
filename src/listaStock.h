@@ -1,8 +1,12 @@
+#ifndef LISTA_STOCK_H
+#define LISTA_STOCK_H
+
 #include <stdbool.h>
 
 #define DECRECE -1
 #define NEUTRO 0
 #define CRECE 1
+
 // TIPO DE DATO: STOCK
 typedef struct t_stock{
     float apertura;
@@ -42,6 +46,5 @@ void insertar(listaStock *, t_stock);
 bool esNulaLista(listaStock);
 void mostrarLista(listaStock);
 void vaciarLista(listaStock *);
-void calcularVecinosMasCercanos(listaStock, t_stock, int);
-float calcularDistancia(t_stock, t_stock);
-float calcularDistancia(t_stock, t_stock);
+
+#endif

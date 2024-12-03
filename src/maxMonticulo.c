@@ -13,8 +13,7 @@ void nuevoMaxMonticulo(tipoMaxMonticulo *m, int numElem) {
 }
 
 void insertarMaxMonticulo(tipoMaxMonticulo *m, tipoElementoMaxMonticulo e) {
-    if (estaLleno(*m)) 
-        errorMaxMonticulo("insertarMaxMonticulo", "El montículo está lleno");
+    if (estaLleno(*m)) errorMaxMonticulo("insertarMaxMonticulo", "El montículo está lleno");
     m->pos = m->pos + 1; // Incrementar la posición del último elemento e insertar el nuevo
     m->array[m->pos] = e;
     int actual = m->pos;
@@ -27,36 +26,28 @@ void insertarMaxMonticulo(tipoMaxMonticulo *m, tipoElementoMaxMonticulo e) {
 }
 
 void eliminarMaxMonticulo(tipoMaxMonticulo *m, tipoElementoMaxMonticulo e) {
-    if(esVacio(*m)) {
-        errorMaxMonticulo("eliminarMaxMonticulo", "El monticulo está vacio");
-    } else {
-        int i = 0;
-        while (m->array[i].distancia != e.distancia && i < m->numEl)
-            i++;
-        if(m->array[i].distancia == e.distancia) {
-            intercambio(&m->array[i],&m->array[m->pos]);
-            m->pos--;
-            if(2*i+1 >= m->pos && 2*i+2 >= m->pos) { //si tiene 2 hijos cambiarlo por el mayor
-                if(m->array[2*i+1].distancia > m->array[2*i+2].distancia) {
-                    if(m->array[2*i+1].distancia > m->array[i].distancia)
-                        intercambio(&m->array[2*i+1], &m->array[i]);
-                } else {
-                    if(m->array[2*i+2].distancia > m->array[i].distancia)
-                        intercambio(&m->array[2*i+2], &m->array[i]);
-                }
-            } else if(2*i+1 >= m->pos) { //si tiene solo el hijo izquierdo se cambia si es mayor
-                if(m->array[2*i+1].distancia > m->array[i].distancia)
-                        intercambio(&m->array[2*i+1], &m->array[i]);
-            }
-        } else {
-            printf("El elemento no esta");        
+    if(esVacio(*m)) errorMaxMonticulo("eliminarMaxMonticulo", "El monticulo está vacio");
+    int i = 0;
+    while (m->array[i].distancia != e.distancia && i < m->numEl) i++;
+    if(m->array[i].distancia != e.distancia) errorMaxMonticulo("eliminarMaxMonticulo", "El elemento no esta");
+    intercambio(&m->array[i],&m->array[m->pos]);
+    m->pos--;
+    if(2*i+1 >= m->pos && 2*i+2 >= m->pos) { //si tiene 2 hijos cambiarlo por el mayor
+        if(m->array[2*i+1].distancia > m->array[2*i+2].distancia) {
+            if(m->array[2*i+1].distancia > m->array[i].distancia) 
+                intercambio(&m->array[2*i+1], &m->array[i]);
+        } else { 
+            if(m->array[2*i+2].distancia > m->array[i].distancia) 
+                intercambio(&m->array[2*i+2], &m->array[i]);
         }
+    } else if(2*i+1 >= m->pos) { //si tiene solo el hijo izquierdo se cambia si es mayor
+        if(m->array[2*i+1].distancia > m->array[i].distancia) 
+            intercambio(&m->array[2*i+1], &m->array[i]);
     }
 }
 
 tipoElementoMaxMonticulo devolverRaiz(tipoMaxMonticulo m) {
-    if(esVacio(m))
-        errorMaxMonticulo("devolverRaiz" ,"El monticulo está vacio");
+    if(esVacio(m)) errorMaxMonticulo("devolverRaiz" ,"El monticulo está vacio");
     return m.array[0];
 }
 
