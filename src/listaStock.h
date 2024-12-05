@@ -13,7 +13,7 @@ typedef struct t_stock{
     float valor_max_dia;
     float valor_min_dia;
     float cierre;
-    long int volumen;
+    double volumen;
     float RSI_7;
     float RSI_14;
     float CCI_7;
@@ -43,6 +43,8 @@ typedef struct listaS {
 
 void nuevaLista(listaStock *);
 void insertar(listaStock *, t_stock);
+void eliminarPrimero(listaStock *);
+t_stock * obtenerPrimero(listaStock );
 bool esNulaLista(listaStock);
 void mostrarLista(listaStock);
 void vaciarLista(listaStock *);

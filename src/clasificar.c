@@ -70,17 +70,19 @@ int predecirClase(tipoMaxMonticulo knn) {
         }
         vecino = knn.array[i];
     }
-    if(claseDecrece > claseNeutro) {
-        return (claseDecrece > claseCrece) ? DECRECE : CRECE;
-    } else if(claseDecrece < claseNeutro) {
-        return (claseNeutro > claseCrece) ? NEUTRO : CRECE;
-    } else if(claseDecrece == claseNeutro && claseDecrece < claseCrece) {
-        return (distanciaDecrece < distanciaNeutro) ? DECRECE : NEUTRO;
-    } else if(claseDecrece == claseNeutro && claseDecrece > claseCrece) {
+    if(claseCrece > claseDecrece && claseCrece > claseNeutro) {
         return CRECE;
-    } else if(claseNeutro == claseCrece && claseNeutro < claseDecrece) {
-        return (distanciaNeutro < distanciaCrece) ? NEUTRO : CRECE;
-    } else {
+    } else if(claseDecrece > claseCrece && claseDecrece > claseNeutro) {
         return DECRECE;
+    } else if(claseNeutro > claseCrece && claseNeutro > claseDecrece) {
+        return NEUTRO;
+    } else { //son iguales, se elige el que tenga menor distancia
+        if(distanciaCrece < distanciaDecrece && distanciaCrece < distanciaNeutro) {
+            return CRECE;
+        } else if(distanciaDecrece < distanciaCrece && distanciaDecrece < distanciaNeutro) {
+            return DECRECE;
+        } else {
+            return NEUTRO;
+        }
     }
 }

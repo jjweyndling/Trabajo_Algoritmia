@@ -28,6 +28,21 @@ void insertar(listaStock *lista, t_stock nuevoStock) {
     lista->fin = nueva;
 }
 
+void eliminarPrimero(listaStock *lista) {
+    if (esNulaLista(*lista)) 
+        errorListaStock("eliminarPrimero", "La lista es nula");
+    celdaStock *aux = lista->ini, *aux2;
+    aux2 = aux->sig;
+    lista->ini = aux2;
+    free(aux);
+}
+
+t_stock * obtenerPrimero(listaStock lista) {
+    if (esNulaLista(lista)) 
+        errorListaStock("obtenerPrimero", "La lista es nula");
+    return lista.ini->s;
+}
+
 bool esNulaLista(listaStock p) { 
     return (p.ini == NULL); 
 }
@@ -44,8 +59,8 @@ void mostrarLista(listaStock lista) {
         printf("\tValor maximo: %f\n", aux->s->valor_max_dia);
         printf("\tValor minimo: %f\n", aux->s->valor_min_dia);
         printf("\tValor en cierre: %f\n", aux->s->cierre);
-        printf("\tVolumen total: %ld\n", aux->s->volumen);
-        printf("\tRSI(7): %f\n", aux->s->RSI_7);
+        printf("\tVolumen total: %f\n", aux->s->volumen);
+        printf("\tRSI(7): %lf\n", aux->s->RSI_7);
         printf("\tRSI(14): %f\n", aux->s->RSI_14);
         printf("\tCCI(7): %f\n", aux->s->CCI_7);
         printf("\tCCI(14): %f\n", aux->s->CCI_14);
@@ -76,4 +91,3 @@ void vaciarLista(listaStock *lista) {
     lista->ini = NULL;
     lista->fin = NULL;
 }
-

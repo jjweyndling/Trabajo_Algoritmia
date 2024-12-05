@@ -29,7 +29,7 @@ static void guardarStock(char *entrada, listaStock *lista_stocks) {
     s.valor_max_dia = strtof(atr[1], NULL);
     s.valor_min_dia = strtof(atr[2], NULL);
     s.cierre = strtof(atr[3], NULL);
-    s.volumen = strtol(atr[4], NULL, 0);
+    s.volumen = strtod(atr[4], NULL);
     s.RSI_7 = strtof(atr[5], NULL);
     s.RSI_14 = strtof(atr[6], NULL);
     s.CCI_7 = strtof(atr[7], NULL);
@@ -65,7 +65,7 @@ void cargarEntradas(char *file, listaStock *lista) {
         leerEntrada(f, buffer);
         if (strlen(buffer) > 30) // Para evitar lecturas erroneas (cada entrada stock tiene al menos 30 caracteres) <-- ESTO HAY QUE REVISAR 
             guardarStock(buffer, lista);
+            
     }
     fclose(f);
-    normalizar(lista);
 }

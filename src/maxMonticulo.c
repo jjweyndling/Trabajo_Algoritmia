@@ -73,3 +73,38 @@ void intercambio(tipoElementoMaxMonticulo *a, tipoElementoMaxMonticulo *b){
     *a = *b;
     *b = aux;
 }
+
+void mostrarMaxMonticulo(tipoMaxMonticulo m){
+    if(!esVacio(m)) {
+        for(int i = 0; i < m.pos ;i++){
+            printf("\n--------------------------------------------------\n");
+            printf("\t(KNN %d) Valor en apertura: %f\n", i+1, m.array[i].s->apertura);
+            printf("\t(KNN %d) Valor maximo: %f\n", i+1, m.array[i].s->valor_max_dia);
+            printf("\t(KNN %d) Valor minimo: %f\n", i+1, m.array[i].s->valor_min_dia);
+            printf("\t(KNN %d) Valor en cierre: %f\n", i+1, m.array[i].s->cierre);
+            printf("\t(KNN %d) Volumen total: %f\n", i+1, m.array[i].s->volumen);
+            printf("\t(KNN %d) RSI(7): %lf\n", i+1, m.array[i].s->RSI_7);
+            printf("\t(KNN %d) RSI(14): %f\n", i+1, m.array[i].s->RSI_14);
+            printf("\t(KNN %d) CCI(7): %f\n", i+1, m.array[i].s->CCI_7);
+            printf("\t(KNN %d) CCI(14): %f\n", i+1, m.array[i].s->CCI_14);
+            printf("\t(KNN %d) SMA(50): %f\n", i+1, m.array[i].s->SMA_50);
+            printf("\t(KNN %d) EMA(50): %f\n", i+1, m.array[i].s->EMA_50);
+            printf("\t(KNN %d) SMA(100): %f\n", i+1, m.array[i].s->SMA_100);
+            printf("\t(KNN %d) EMA(100): %f\n", i+1, m.array[i].s->EMA_100);
+            printf("\t(KNN %d) MACD: %f\n", i+1, m.array[i].s->MACD);
+            printf("\t(KNN %d) Indice Bollinger: %f\n", i+1, m.array[i].s->bollinger);
+            printf("\t(KNN %d) Rango efectivo(TR): %f\n", i+1, m.array[i].s->TR);
+            printf("\t(KNN %d) Rango efectivo medio(ATR(7)): %f\n", i+1, m.array[i].s->ATR_7);
+            printf("\t(KNN %d) Rango efectivo medio(ATR(14)) %f\n", i+1, m.array[i].s->ATR_14);
+            printf("\t(KNN %d) Variacion: %d\n", i+1, m.array[i].s->variacion);
+            printf("\n--------------------------------------------------\n");
+        }
+    } else {
+        errorMaxMonticulo("mostrarMaxMonticulo", "El monticulo está vacio");
+    }
+}
+
+void vaciarMaxMonticulo(tipoMaxMonticulo * m){
+    m->pos = -1;
+    m->numEl = 0;
+}

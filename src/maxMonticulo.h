@@ -8,7 +8,7 @@
 // ESTRUCTURA: VECINO
 typedef struct vecino {
     t_stock *s;               // Puntero al stock seleccionado
-    float distancia;          // Distancia a este stock
+    float distancia;          // Distancia a este stock del sujeto
 } vecino;
 
 typedef vecino tipoElementoMaxMonticulo;
@@ -28,5 +28,6 @@ void mostrarAnchura(tipoMaxMonticulo);
 bool esVacio(tipoMaxMonticulo);
 bool estaLleno(tipoMaxMonticulo);
 void intercambio(tipoElementoMaxMonticulo *a, tipoElementoMaxMonticulo *b);
-
+void mostrarMaxMonticulo(tipoMaxMonticulo);
+void vaciarMaxMonticulo(tipoMaxMonticulo *);
 #endif
