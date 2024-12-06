@@ -4,24 +4,24 @@
 
 float calcularDistancia(t_stock stock, t_stock modelo){
     return sqrt(
-          pow(modelo.apertura - stock.apertura, 2)
-        + pow(modelo.valor_max_dia - stock.valor_max_dia, 2) 
-        + pow(modelo.valor_min_dia - stock.valor_min_dia, 2) 
-        + pow(modelo.cierre - stock.cierre, 2) 
-        + pow(modelo.volumen - stock.volumen, 2) 
-        + pow(modelo.RSI_7 - stock.RSI_7, 2) 
-        + pow(modelo.RSI_14 - stock.RSI_14, 2) 
-        + pow(modelo.CCI_7 - stock.CCI_7, 2) 
-        + pow(modelo.CCI_14 - stock.CCI_14, 2) 
-        + pow(modelo.SMA_50 - stock.SMA_50, 2) 
-        + pow(modelo.EMA_50 - stock.EMA_50, 2) 
-        + pow(modelo.SMA_100 - stock.SMA_100, 2) 
-        + pow(modelo.EMA_100 - stock.EMA_100, 2) 
-        + pow(modelo.MACD - stock.MACD, 2) 
-        + pow(modelo.bollinger - stock.bollinger, 2) 
-        + pow(modelo.TR - stock.TR, 2) 
-        + pow(modelo.ATR_7 - stock.ATR_7, 2) 
-        + pow(modelo.ATR_14 - stock.ATR_14, 2)
+          (pow(modelo.apertura - stock.apertura, 2) * PESO_APERTURA) 
+        + (pow(modelo.valor_max_dia - stock.valor_max_dia, 2) * PESO_VALORMAX) 
+        + (pow(modelo.valor_min_dia - stock.valor_min_dia, 2) * PESO_VALORMIN) 
+        + (pow(modelo.cierre - stock.cierre, 2) * PESO_CIERRE)
+        + (pow(modelo.volumen - stock.volumen, 2) * PESO_VOLUMEN)
+        + (pow(modelo.RSI_7 - stock.RSI_7, 2) * PESO_RSI7)
+        + (pow(modelo.RSI_14 - stock.RSI_14, 2) * PESO_RSI14)
+        + (pow(modelo.CCI_7 - stock.CCI_7, 2) * PESO_CCI7)
+        + (pow(modelo.CCI_14 - stock.CCI_14, 2) * PESO_CCI14)
+        + (pow(modelo.SMA_50 - stock.SMA_50, 2) * PESO_SMA50)
+        + (pow(modelo.EMA_50 - stock.EMA_50, 2) * PESO_EMA50)
+        + (pow(modelo.SMA_100 - stock.SMA_100, 2) * PESO_SMA100)
+        + (pow(modelo.EMA_100 - stock.EMA_100, 2) * PESO_EMA100)
+        + (pow(modelo.MACD - stock.MACD, 2) * PESO_MACD)
+        + (pow(modelo.bollinger - stock.bollinger, 2) * PESO_BOLLINGER)
+        + (pow(modelo.TR - stock.TR, 2) * PESO_TR)
+        + (pow(modelo.ATR_7 - stock.ATR_7, 2) * PESO_ATR7)
+        + (pow(modelo.ATR_14 - stock.ATR_14, 2) * PESO_ATR14)
     );
 }
 
@@ -76,7 +76,7 @@ int predecirClase(tipoMaxMonticulo knn) {
         return DECRECE;
     } else if(claseNeutro > claseCrece && claseNeutro > claseDecrece) {
         return NEUTRO;
-    } else { //son iguales, se elige el que tenga menor distancia
+    } else { // Hay empate, se elige el que este a menor distancia total
         if(distanciaCrece < distanciaDecrece && distanciaCrece < distanciaNeutro) {
             return CRECE;
         } else if(distanciaDecrece < distanciaCrece && distanciaDecrece < distanciaNeutro) {

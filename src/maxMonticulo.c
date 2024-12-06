@@ -105,6 +105,9 @@ void mostrarMaxMonticulo(tipoMaxMonticulo m){
 }
 
 void vaciarMaxMonticulo(tipoMaxMonticulo * m){
-    m->pos = -1;
-    m->numEl = 0;
+    // m->pos = -1;
+    // m->numEl = 0;
+    while(!esVacio(*m)) {
+        eliminarMaxMonticulo(m, devolverRaiz(*m));
+    }
 }

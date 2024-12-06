@@ -15,7 +15,7 @@ int main(){
     printf("K: ");
     scanf("%d", &k);
     nuevoMaxMonticulo(&knn, k);
-    printf("Pulse 1 si desea cargar un archivo de testeo, 0 si desea introducir los datos manualmente: ");
+    printf("Pulse 1 si desea comprobar la precision con un archivo de testeo, 0 si desea introducir los datos de un sujeto manualmente para clasificar: ");
     scanf("%d", &opcion);
     if(opcion) {
         char * test_pathname = "../data/test.csv";  
@@ -44,7 +44,7 @@ int main(){
             vaciarMaxMonticulo(&knn);
             eliminarPrimero(&lista_test);
         }
-        printf("Eficacia: %f\n", (float)aciertos/cont*100); //calcular los aciertos e imprimirlos
+        printf("Eficacia: %f\n", (float)aciertos/cont*100); 
     } else {
         printf("INTRODUCIR SUJETO A CLASIFICAR\n");
         printf("--------------------------------------------------\n");
