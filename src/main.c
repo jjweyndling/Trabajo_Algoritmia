@@ -1,13 +1,14 @@
 #include <stdio.h>
+#include <string.h>
 #include "cargarDatos.h"
 #include "clasificar.h"
 
 int main(){
-    char * pathname = "../data/aapl_2014_2023.csv";
+    char pathname[120] = "../data/aapl_2014_2023.csv";
     listaStock lista;
     tipoMaxMonticulo knn;
     t_stock stockSujeto, maximo, minimo;
-    int k, aciertos=0, opcion, cont=0;
+    int k, aciertos=0, opcion, nMuestras, cont=0;
     nuevaLista(&lista);
     cargarEntradas(pathname, &lista);
     normalizarLista(&lista, &maximo, &minimo);
@@ -18,7 +19,16 @@ int main(){
     printf("Pulse 1 si desea comprobar la precision con un archivo de testeo, 0 si desea introducir los datos de un sujeto manualmente para clasificar: ");
     scanf("%d", &opcion);
     if(opcion) {
-        char * test_pathname = "../data/test.csv";  
+        char test_pathname[120];  
+        printf("Elige el número de muestras\n0 - 200 \n1 - 500\nMuestras:");
+        scanf("%d", &nMuestras);
+        if(!nMuestras) {
+            strcpy(pathname, "../data/data_test_200/data1.csv");
+            strcpy(test_pathname, "../data/data_test_200/test_200.csv");
+        } else {
+            strcpy(pathname, "../data/data_test_500/data2.csv");
+            strcpy(test_pathname, "../data/data_test_500/test_500.csv");
+        }
         listaStock lista_test;    
         t_stock *stockTest;
         nuevaLista(&lista_test);

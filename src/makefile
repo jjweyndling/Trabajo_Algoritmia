@@ -1,7 +1,7 @@
 all: main
 
 main: main.c cargarDatos clasificar 
-	gcc main.c -o main *.o -lm -Wall
+	gcc main.c -o main *.o -lm -g -Wall
 
 cargarDatos: cargarDatos.c normalizar
 	gcc -c cargarDatos.c -Wall
